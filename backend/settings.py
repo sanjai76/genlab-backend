@@ -127,3 +127,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sanjaimsd141@gmail.com'  # Your email
 EMAIL_HOST_PASSWORD = 'ajtv ovce nghh aalx'  # Your email password
+
+
+ALLOWED_HOSTS = ["*"]
