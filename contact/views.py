@@ -2,6 +2,7 @@ import resend
 from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import Contact
 
 @api_view(['POST'])
 def contact_api(request):
@@ -12,10 +13,21 @@ def contact_api(request):
     if not all([name, email, message]):
         return Response({"error": "All fields are required"}, status=400)
 
+    # Save to database
+    try:
+        Contact.objects.create(
+            name=name,
+            email=email,
+            message=message
+        )
+    except Exception as e:
+        print(f"Database save failed: {e}")
+        return Response({"error": "Failed to save message"}, status=500)
+
     resend.api_key = settings.RESEND_API_KEY
 
+    # Email to ADMIN
     try:
-        # Email to ADMIN
         resend.Emails.send({
             "from": "onboarding@resend.dev",
             "to": settings.ADMIN_EMAIL,
@@ -28,13 +40,12 @@ def contact_api(request):
                 <p>{message}</p>
             """
         })
-
     except Exception as e:
         print(f"Admin email failed: {e}")
         return Response({"error": str(e)}, status=500)
 
+    # Email to USER
     try:
-        # Email to USER
         resend.Emails.send({
             "from": "onboarding@resend.dev",
             "to": email,
@@ -51,8 +62,6 @@ def contact_api(request):
             """
         })
     except Exception as e:
-        # User email failed but admin email succeeded
-        # Still return success — don't fail the whole request
         print(f"User email failed: {e}")
 
     return Response({"message": "Message sent successfully!"}, status=200)
