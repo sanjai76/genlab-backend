@@ -17,7 +17,7 @@ def contact_api(request):
     try:
         # Email to ADMIN
         resend.Emails.send({
-            "from": "onboarding@resend.dev",  # use this until you verify a domain
+            "from": "onboarding@resend.dev",
             "to": settings.ADMIN_EMAIL,
             "subject": f"New Contact Form Submission from {name}",
             "html": f"""
@@ -29,6 +29,11 @@ def contact_api(request):
             """
         })
 
+    except Exception as e:
+        print(f"Admin email failed: {e}")
+        return Response({"error": str(e)}, status=500)
+
+    try:
         # Email to USER
         resend.Emails.send({
             "from": "onboarding@resend.dev",
@@ -45,9 +50,9 @@ def contact_api(request):
                 <p><strong>GenLab Team</strong></p>
             """
         })
-
     except Exception as e:
-        print(f"Email failed: {e}")
-        return Response({"error": "Failed to send email"}, status=500)
+        # User email failed but admin email succeeded
+        # Still return success — don't fail the whole request
+        print(f"User email failed: {e}")
 
     return Response({"message": "Message sent successfully!"}, status=200)
