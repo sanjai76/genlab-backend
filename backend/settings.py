@@ -132,11 +132,10 @@ ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = [
     "https://genlab-backend.onrender.com",
-    "http://localhost:5173",
-    "https://genlab-frontend.vercel.app"
+    "http://localhost:5173"
 ]
 
 
 
 
-APPEND_SLASH = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
