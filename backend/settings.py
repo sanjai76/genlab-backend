@@ -118,17 +118,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# settings.py
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Use your email provider's SMTP server
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sanjaimsd141@gmail.com'  # Your email
-EMAIL_HOST_PASSWORD = 'ajtv ovce nghh aalx'  # Your email password
+RESEND_API_KEY = 're_Q6d2tYve_7woCDPi4Md2PVY4bUjM5xFYT'
+ADMIN_EMAIL = 'sanjaimsd141@gmail.com'
 
 ALLOWED_HOSTS = ["*"]
-
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True  # temporarily set this to test
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
