@@ -18,16 +18,19 @@ def contact_api(request):
         message=message
     )
 
-    # ⭐ Email to USER (confirmation)
-    send_mail(
-        subject="GenLab Contact Confirmation",
-        message="Hi {},\n\nThank you for contacting GenLab. Our team will reach you soon.".format(name),
-        from_email="yourgmail@gmail.com",
-        recipient_list=[email],
-        fail_silently=False,
-    )
+    # ⭐ Email to USER (safe sending)
+    try:
+        send_mail(
+            subject="GenLab Contact Confirmation",
+            message=f"Hi {name},\n\nThank you for contacting GenLab. Our team will reach you soon.",
+            from_email="sanjaimsd141@gmail.com",
+            recipient_list=[email],
+            fail_silently=True,
+        )
+    except Exception as e:
+        print("User mail error:", e)
 
-    # ⭐ Email to ADMIN (lead notification)
+    # ⭐ Email to ADMIN (safe sending)
     admin_message = f"""
 New Contact Form Submission
 
@@ -36,12 +39,15 @@ Email: {email}
 Message: {message}
 """
 
-    send_mail(
-        subject="🚨 New GenLab Contact Lead",
-        message=admin_message,
-        from_email="yourgmail@gmail.com",
-        recipient_list=["sanjaimsd141@gmail.com"],
-        fail_silently=False,
-    )
+    try:
+        send_mail(
+            subject="🚨 New GenLab Contact Lead",
+            message=admin_message,
+            from_email="sanjaimsd141@gmail.com",
+            recipient_list=["sanjaimsd141@gmail.com"],
+            fail_silently=True,
+        )
+    except Exception as e:
+        print("Admin mail error:", e)
 
     return Response({"status": "saved"})
