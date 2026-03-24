@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-r)71@97s$c+n$tg^i&1!%p7y_5oa#g=_hw&a5y#w9sor-p6sy4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -127,22 +126,24 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sanjaimsd141@gmail.com'  # Your email
 EMAIL_HOST_PASSWORD = 'ajtv ovce nghh aalx'  # Your email password
 
-
 ALLOWED_HOSTS = ["*"]
+
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://genlab-frontend-task.vercel.app"
+    "https://genlab-frontend-task.vercel.app",
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://genlab-backend.onrender.com",
-    "https://genlab-frontend.vercel.app",
-    "http://localhost:5173"
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "OPTIONS",
 ]
 
-
-
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "accept",
+    "authorization",
+    "x-csrftoken",
+]
