@@ -129,9 +129,16 @@ EMAIL_HOST_PASSWORD = 'ajtv ovce nghh aalx'  # Your email password
 
 
 ALLOWED_HOSTS = ["*"]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://genlab-frontend-task.vercel.app"
+]
+
 CSRF_TRUSTED_ORIGINS = [
     "https://genlab-backend.onrender.com",
+    "https://genlab-frontend.vercel.app",
     "http://localhost:5173"
 ]
 
